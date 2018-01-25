@@ -97,6 +97,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
+        <com.jjoe64.graphview.GraphView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/graph"/>
         <EditText
             android:id="@+id/editText"
             android:layout_width="match_parent"
