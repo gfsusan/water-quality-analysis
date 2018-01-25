@@ -7,7 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 
-public class Diaplay1Activity extends AppCompatActivity {
+public class Display1Activity extends AppCompatActivity {
     Button buttonMove;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -15,9 +15,9 @@ public class Diaplay1Activity extends AppCompatActivity {
         setContentView(R.layout.activity_display1);
         buttonMove = (Button)findViewById(R.id.buttonMove);
 
-        buttonMove.setOnClickListener(new View.OnClickListener(){
+        buttonMove.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClic(View v) {
+            public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), Display2Activity.class);
                 startActivity(intent);
                 finish();
