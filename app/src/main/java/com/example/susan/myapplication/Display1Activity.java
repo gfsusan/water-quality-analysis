@@ -55,6 +55,10 @@ public class Display1Activity extends AppCompatActivity {
         textVal3 = (TextView)findViewById(R.id.text_c3_val);
         textBool3 = (TextView)findViewById(R.id.text_c3_bool);
 
+        textDesc4 = (TextView)findViewById(R.id.text_c4_description);
+        textVal4 = (TextView)findViewById(R.id.text_c4_val);
+        textBool4 = (TextView)findViewById(R.id.text_c4_bool);
+
         // defaultAdapter 생성
         defaultAdapter = new ArrayAdapter<String>(context,
                 R.layout.support_simple_spinner_dropdown_item,
