@@ -4,6 +4,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.Spinner;
 
 import com.jjoe64.graphview.GraphView;
@@ -11,6 +12,7 @@ import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
 
 public class Display2Activity extends AppCompatActivity {
+    ImageButton buttonBack;
     Button buttonMove;
     Spinner spinner1, spinner2, spinner3;
 LineGraphSeries<DataPoint> series;
@@ -18,10 +20,18 @@ LineGraphSeries<DataPoint> series;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_display2);
+        buttonBack = (ImageButton)findViewById(R.id.buttonBack);
         buttonMove = (Button)findViewById(R.id.buttonMove);
         spinner1 = (Spinner)findViewById(R.id.spinner1);
         spinner2 = (Spinner)findViewById(R.id.spinner2);
         spinner3 = (Spinner)findViewById(R.id.spinner3);
+
+        buttonBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
         buttonMove.setOnClickListener(new View.OnClickListener(){
         // '이동' 버튼 누르면 그래프 생성

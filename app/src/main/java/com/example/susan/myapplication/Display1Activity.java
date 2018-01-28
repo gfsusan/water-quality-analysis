@@ -2,12 +2,14 @@ package com.example.susan.myapplication;
 
 import android.content.Context;
 import android.content.Intent;
+import android.provider.ContactsContract;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -20,7 +22,7 @@ import java.util.Collections;
 import java.util.List;
 
 public class Display1Activity extends AppCompatActivity {
-
+    ImageButton buttonBack;
     Button buttonMove;
     Spinner spinner1, spinner2, spinner3, spinner4;
     ArrayAdapter<String> defaultAdapter;
@@ -28,6 +30,7 @@ public class Display1Activity extends AppCompatActivity {
             textDesc2, textVal2, textBool2,
             textDesc3, textVal3, textBool3,
             textDesc4, textVal4, textBool4;
+
     final String nothing = "선택";
     boolean onLoad = true;
     int count = 0;
@@ -37,7 +40,9 @@ public class Display1Activity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_display1);
         final Context context = this;
+        buttonBack = (ImageButton)findViewById(R.id.buttonBack);
         buttonMove = (Button)findViewById(R.id.buttonMove);
+
         spinner1 = (Spinner)findViewById(R.id.spinner1);
         spinner2 = (Spinner)findViewById(R.id.spinner2);
         spinner3 = (Spinner)findViewById(R.id.spinner3);
@@ -205,14 +210,21 @@ public class Display1Activity extends AppCompatActivity {
             }
         });
 
+        buttonBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
         buttonMove.setOnClickListener(new View.OnClickListener() {
             // '이동' 버튼 누르면 다음화면으로 이동
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), Display2Activity.class);
                 startActivity(intent);
-                finish();
             }
         });
+
     }
 }
