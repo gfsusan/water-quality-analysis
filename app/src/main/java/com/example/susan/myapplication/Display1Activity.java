@@ -19,6 +19,7 @@ public class Display1Activity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_display1);
+        final Context context = this;
         buttonMove = (Button)findViewById(R.id.buttonMove);
         spinner1 = (Spinner)findViewById(R.id.spinner1);
         spinner2 = (Spinner)findViewById(R.id.spinner2);
@@ -28,15 +29,16 @@ public class Display1Activity extends AppCompatActivity {
         // On create, spinner1의 list를 받아온다.
         // DB에서 String 배열 받아온다 !!!!
         // String[] items = 어쩌고저쩌고
-        final Context context = this;
+
+        String[] items = {"가져온 a1", "가져온 a2", "가져온 a3", "가져온 a4"};
+        arrayAdapter = new ArrayAdapter<String>(context, R.layout.support_simple_spinner_dropdown_item, items);
+        spinner1.setAdapter(arrayAdapter);// arrayAdapter.createFromResource(this, items, R.layout.support_simple_spinner_dropdown_item);
 
         spinner1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 // 선택되면 DB에서 데이터 불러와서 spinner2에 item list 보여줌
-                String[] items = {"가져온 a1", "가져온 a2", "가져온 a3", "가져온 a4"};
-                arrayAdapter = new ArrayAdapter<String>(context, R.layout.support_simple_spinner_dropdown_item, items);
-                // arrayAdapter.createFromResource(this, items, R.layout.support_simple_spinner_dropdown_item);
+                
             }
 
             @Override
