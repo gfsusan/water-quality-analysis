@@ -26,7 +26,8 @@ public class Display1Activity extends AppCompatActivity {
     ArrayAdapter<String> defaultAdapter;
     TextView textDesc1, textVal1, textBool1,
             textDesc2, textVal2, textBool2,
-            textDesc3, textVal3, textBool3;
+            textDesc3, textVal3, textBool3,
+            textDesc4, textVal4, textBool4;
     final String nothing = "선택";
     boolean onLoad = true;
     int count = 0;
@@ -188,6 +189,9 @@ public class Display1Activity extends AppCompatActivity {
                     textDesc3.setText("All set " + count);
                     textVal3.setText("All set " + count);
                     textBool3.setText("All set " + count);
+                    textDesc4.setText("All set " + count);
+                    textVal4.setText("All set " + count);
+                    textBool4.setText("All set " + count);
                 }
             }
 
