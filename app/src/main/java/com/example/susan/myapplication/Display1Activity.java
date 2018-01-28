@@ -11,10 +11,21 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 public class Display1Activity extends AppCompatActivity {
+
     Button buttonMove;
     Spinner spinner1, spinner2, spinner3, spinner4;
-    ArrayAdapter<String> arrayAdapter;
+    ArrayAdapter<String> defaultAdapter;
+    final String nothing = "선택";
+    boolean onLoad = true;
+    final int nSpinner = 4;
+    int nSpinnerInitialized = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,19 +37,57 @@ public class Display1Activity extends AppCompatActivity {
         spinner3 = (Spinner)findViewById(R.id.spinner3);
         spinner4 = (Spinner)findViewById(R.id.spinner4);
 
+        // defaultAdapter 생성
+        defaultAdapter = new ArrayAdapter<String>(context,
+                R.layout.support_simple_spinner_dropdown_item,
+                new String[]{nothing});
+
+        // set defaultAdapter
+        spinner2.setAdapter(defaultAdapter);
+        spinner3.setAdapter(defaultAdapter);
+        spinner4.setAdapter(defaultAdapter);
+
         // On create, spinner1의 list를 받아온다.
         // DB에서 String 배열 받아온다 !!!!
         // String[] items = 어쩌고저쩌고
+        String[] spinnerList1 = {"가져온 a1", "가져온 a2", "가져온 a3", "가져온 a4"};
+        ArrayList<String> list1 = new ArrayList<>();
+        Collections.addAll(list1,spinnerList1);
+        // 선택되지 않았을 때 값 추가
+        list1.add(0, nothing);
 
-        String[] items = {"가져온 a1", "가져온 a2", "가져온 a3", "가져온 a4"};
-        arrayAdapter = new ArrayAdapter<String>(context, R.layout.support_simple_spinner_dropdown_item, items);
-        spinner1.setAdapter(arrayAdapter);// arrayAdapter.createFromResource(this, items, R.layout.support_simple_spinner_dropdown_item);
+        // spinner1에게 arrayAdapter 줭
+        spinner1.setAdapter(new ArrayAdapter<String>(context,
+                R.layout.support_simple_spinner_dropdown_item,
+                list1));
+        spinner1.setSelection(0);
 
+
+        // spinner1의 item이 선택되었을 때
         spinner1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                // 선택되면 DB에서 데이터 불러와서 spinner2에 item list 보여줌
-                
+                    // 선택되면 DB에서 데이터 불러와서 spinner2에 item list 보여줌
+                if(spinner1.getSelectedItemPosition()==0) {
+                    spinner2.setAdapter(defaultAdapter);
+                    spinner3.setAdapter(defaultAdapter);
+                    spinner4.setAdapter(defaultAdapter);
+                }
+                else {
+                    String[] spinnerList2 = {"가져온 b1", "가져온 b2", "가져온 b3", "가져온 b4"};
+                    ArrayList<String> list2 = new ArrayList<>();
+                    Collections.addAll(list2, spinnerList2);
+                    // 선택되지 않았을 때 값 추가
+                    list2.add(0, nothing);
+
+                    spinner2.setAdapter(new ArrayAdapter<String>(context,
+                            R.layout.support_simple_spinner_dropdown_item,
+                            list2));
+
+                    //하위 스피너 초기화
+                    spinner3.setAdapter(defaultAdapter);
+                    spinner4.setAdapter(defaultAdapter);
+                }
             }
 
             @Override
@@ -47,10 +96,30 @@ public class Display1Activity extends AppCompatActivity {
             }
         });
 
+        // spinner2의 item이 선택되었을 때
         spinner2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                // 선택되면 DB에서 데이터 불러와서 spinner2에 item list 보여줌
+                    // 선택되면 DB에서 데이터 불러와서 spinner2에 item list 보여줌
+                if(spinner2.getSelectedItemPosition() == 0) {
+                    spinner3.setAdapter(defaultAdapter);
+                    spinner4.setAdapter(defaultAdapter);
+                }
+                else {
+                    String[] spinnerList3 = {"가져온 c1", "가져온 c2", "가져온 c3", "가져온 c4"};
+                    ArrayList<String> list3 = new ArrayList<>();
+                    Collections.addAll(list3, spinnerList3);
+                    // 선택되지 않았을 때 값 추가
+                    list3.add(0, nothing);
+
+                    spinner3.setAdapter(new ArrayAdapter<String>(context,
+                            R.layout.support_simple_spinner_dropdown_item,
+                            list3));
+
+                    // 하위 스피너 초기화
+                    spinner4.setAdapter(defaultAdapter);
+                }
+
             }
 
             @Override
@@ -59,10 +128,25 @@ public class Display1Activity extends AppCompatActivity {
             }
         });
 
+        // spinner3의 item이 선택되었을 때
         spinner3.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                // 선택되면 DB에서 데이터 불러와서 spinner2에 item list 보여줌
+                    // 선택되면 DB에서 데이터 불러와서 spinner2에 item list 보여줌
+                if(spinner3.getSelectedItemPosition() == 0) {
+                    spinner4.setAdapter(defaultAdapter);
+                }
+                else {
+                    String[] spinnerList4 = {"가져온 d1", "가져온 d2", "가져온 d3", "가져온 d4"};
+                    ArrayList<String> list4 = new ArrayList<>();
+                    Collections.addAll(list4, spinnerList4);
+                    // 선택되지 않았을 때 값 추가
+                    list4.add(0, nothing);
+
+                    spinner4.setAdapter(new ArrayAdapter<String>(context,
+                            R.layout.support_simple_spinner_dropdown_item,
+                            list4));
+                }
             }
 
             @Override
@@ -71,10 +155,14 @@ public class Display1Activity extends AppCompatActivity {
             }
         });
 
+        // spinner4의 item이 선택되었을 때
         spinner4.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                // 선택되면 화면중앙에 해당하는 station의 최신정보를 받아와 criteria별로 표시함
+                    // 선택되면 화면중앙에 해당하는 station의 최신정보를 받아와 criteria별로 표시함
+                if(spinner4.getSelectedItemPosition() == 0) {
+
+                }
             }
 
             @Override
