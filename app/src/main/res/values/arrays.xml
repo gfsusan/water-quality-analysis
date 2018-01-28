@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="list1">
+        <item>선택1</item>
+        <item>선택2</item>
+        <item>선택3</item>
+    </string-array>
+
+    <string-array name="list2">
+        <item>b1</item>
+        <item>b2</item>
+        <item>b3</item>
+        <item>b4</item>
+    </string-array>
+
+    <string-array name="list3">
+        <item>c1</item>
+        <item>c2</item>
+        <item>c3</item>
+        <item>c4</item>
+    </string-array>
+
+    <string-array name="list4">
+        <item>d1</item>
+        <item>d2</item>
+        <item>d3</item>
+        <item>d4</item>
+    </string-array>
+</resources>
