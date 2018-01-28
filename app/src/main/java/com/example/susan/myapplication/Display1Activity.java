@@ -10,6 +10,9 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
+import android.widget.TextView;
+
+import org.w3c.dom.Text;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -21,10 +24,12 @@ public class Display1Activity extends AppCompatActivity {
     Button buttonMove;
     Spinner spinner1, spinner2, spinner3, spinner4;
     ArrayAdapter<String> defaultAdapter;
+    TextView textDesc1, textVal1, textBool1,
+            textDesc2, textVal2, textBool2,
+            textDesc3, textVal3, textBool3;
     final String nothing = "선택";
     boolean onLoad = true;
-    final int nSpinner = 4;
-    int nSpinnerInitialized = 0;
+    int count = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +41,18 @@ public class Display1Activity extends AppCompatActivity {
         spinner2 = (Spinner)findViewById(R.id.spinner2);
         spinner3 = (Spinner)findViewById(R.id.spinner3);
         spinner4 = (Spinner)findViewById(R.id.spinner4);
+
+        textDesc1 = (TextView)findViewById(R.id.text_c1_description);
+        textVal1 = (TextView)findViewById(R.id.text_c1_val);
+        textBool1 = (TextView)findViewById(R.id.text_c1_bool);
+
+        textDesc2 = (TextView)findViewById(R.id.text_c2_description);
+        textVal2 = (TextView)findViewById(R.id.text_c2_val);
+        textBool2 = (TextView)findViewById(R.id.text_c2_bool);
+
+        textDesc3 = (TextView)findViewById(R.id.text_c3_description);
+        textVal3 = (TextView)findViewById(R.id.text_c3_val);
+        textBool3 = (TextView)findViewById(R.id.text_c3_bool);
 
         // defaultAdapter 생성
         defaultAdapter = new ArrayAdapter<String>(context,
@@ -159,9 +176,18 @@ public class Display1Activity extends AppCompatActivity {
         spinner4.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                    // 선택되면 화면중앙에 해당하는 station의 최신정보를 받아와 criteria별로 표시함
-                if(spinner4.getSelectedItemPosition() == 0) {
-
+                    // 선택되면 화면중앙부분 text set
+                if(spinner4.getSelectedItemPosition() != 0) {
+                    count++;
+                    textDesc1.setText("All set " + count);
+                    textVal1.setText("All set " + count);
+                    textBool1.setText("All set " + count);
+                    textDesc2.setText("All set " + count);
+                    textVal2.setText("All set " + count);
+                    textBool2.setText("All set " + count);
+                    textDesc3.setText("All set " + count);
+                    textVal3.setText("All set " + count);
+                    textBool3.setText("All set " + count);
                 }
             }
 
