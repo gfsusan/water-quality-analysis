@@ -6,12 +6,15 @@ import android.provider.ContactsContract;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
+import android.widget.TableLayout;
+import android.widget.TableRow;
 import android.widget.TextView;
 
 import org.w3c.dom.Text;
@@ -26,13 +29,14 @@ public class Display1Activity extends AppCompatActivity {
     Button buttonMove;
     Spinner spinner1, spinner2, spinner3, spinner4;
     ArrayAdapter<String> defaultAdapter;
-    TextView textDesc1, textVal1, textBool1,
-            textDesc2, textVal2, textBool2,
-            textDesc3, textVal3, textBool3,
-            textDesc4, textVal4, textBool4;
+    TableLayout tableLayout;
+    TableRow[] tableRows;
+//    TextView textDesc1, textVal1, textBool1,
+//            textDesc2, textVal2, textBool2,
+//            textDesc3, textVal3, textBool3,
+//            textDesc4, textVal4, textBool4;
 
     final String nothing = "선택";
-    boolean onLoad = true;
     int count = 0;
 
     @Override
@@ -48,21 +52,24 @@ public class Display1Activity extends AppCompatActivity {
         spinner3 = (Spinner)findViewById(R.id.spinner3);
         spinner4 = (Spinner)findViewById(R.id.spinner4);
 
-        textDesc1 = (TextView)findViewById(R.id.text_c1_description);
-        textVal1 = (TextView)findViewById(R.id.text_c1_val);
-        textBool1 = (TextView)findViewById(R.id.text_c1_bool);
+        tableLayout = (TableLayout)findViewById(R.id.tableLayout);
+        TableLayout.LayoutParams lp = new TableLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
 
-        textDesc2 = (TextView)findViewById(R.id.text_c2_description);
-        textVal2 = (TextView)findViewById(R.id.text_c2_val);
-        textBool2 = (TextView)findViewById(R.id.text_c2_bool);
-
-        textDesc3 = (TextView)findViewById(R.id.text_c3_description);
-        textVal3 = (TextView)findViewById(R.id.text_c3_val);
-        textBool3 = (TextView)findViewById(R.id.text_c3_bool);
-
-        textDesc4 = (TextView)findViewById(R.id.text_c4_description);
-        textVal4 = (TextView)findViewById(R.id.text_c4_val);
-        textBool4 = (TextView)findViewById(R.id.text_c4_bool);
+//        textDesc1 = (TextView)findViewById(R.id.text_c1_description);
+//        textVal1 = (TextView)findViewById(R.id.text_c1_val);
+//        textBool1 = (TextView)findViewById(R.id.text_c1_bool);
+//
+//        textDesc2 = (TextView)findViewById(R.id.text_c2_description);
+//        textVal2 = (TextView)findViewById(R.id.text_c2_val);
+//        textBool2 = (TextView)findViewById(R.id.text_c2_bool);
+//
+//        textDesc3 = (TextView)findViewById(R.id.text_c3_description);
+//        textVal3 = (TextView)findViewById(R.id.text_c3_val);
+//        textBool3 = (TextView)findViewById(R.id.text_c3_bool);
+//
+//        textDesc4 = (TextView)findViewById(R.id.text_c4_description);
+//        textVal4 = (TextView)findViewById(R.id.text_c4_val);
+//        textBool4 = (TextView)findViewById(R.id.text_c4_bool);
 
         // defaultAdapter 생성
         defaultAdapter = new ArrayAdapter<String>(context,
@@ -107,7 +114,7 @@ public class Display1Activity extends AppCompatActivity {
                     // 선택되지 않았을 때 값 추가
                     list2.add(0, nothing);
 
-                    spinner2.setAdapter(new ArrayAdapter<String>(context,
+                    spinner2.setAdapter(new ArrayAdapter<String>(getApplicationContext(),
                             R.layout.support_simple_spinner_dropdown_item,
                             list2));
 
@@ -139,7 +146,7 @@ public class Display1Activity extends AppCompatActivity {
                     // 선택되지 않았을 때 값 추가
                     list3.add(0, nothing);
 
-                    spinner3.setAdapter(new ArrayAdapter<String>(context,
+                    spinner3.setAdapter(new ArrayAdapter<String>(getApplicationContext(),
                             R.layout.support_simple_spinner_dropdown_item,
                             list3));
 
@@ -170,7 +177,7 @@ public class Display1Activity extends AppCompatActivity {
                     // 선택되지 않았을 때 값 추가
                     list4.add(0, nothing);
 
-                    spinner4.setAdapter(new ArrayAdapter<String>(context,
+                    spinner4.setAdapter(new ArrayAdapter<String>(getApplicationContext(),
                             R.layout.support_simple_spinner_dropdown_item,
                             list4));
                 }
@@ -188,19 +195,42 @@ public class Display1Activity extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                     // 선택되면 화면중앙부분 text set
                 if(spinner4.getSelectedItemPosition() != 0) {
-                    count++;
-                    textDesc1.setText("All set " + count);
-                    textVal1.setText("All set " + count);
-                    textBool1.setText("All set " + count);
-                    textDesc2.setText("All set " + count);
-                    textVal2.setText("All set " + count);
-                    textBool2.setText("All set " + count);
-                    textDesc3.setText("All set " + count);
-                    textVal3.setText("All set " + count);
-                    textBool3.setText("All set " + count);
-                    textDesc4.setText("All set " + count);
-                    textVal4.setText("All set " + count);
-                    textBool4.setText("All set " + count);
+                    // 해당 station의 datapoint 개수를 받아온다.
+                    int nDataPoint = 5;
+                    double c1 = 5;
+                    double c2 = 10;
+                    double val = 7;
+                    boolean flag = (val >=c1 && val <= c2);
+                    String unit = "cm";
+                    // datapoint의 개수만큼 tableRow 생성
+                    tableRows = new TableRow[nDataPoint];
+                    for (int j = 0; j < nDataPoint; j++) {
+                        tableRows[j] = new TableRow(getApplicationContext());
+                        TextView textview1 = new TextView(getApplicationContext());
+                        textview1.setText("C["+j+"].Desc");
+                        TextView textview2 = new TextView(getApplicationContext());
+                        textview2.setText(val + " " + unit);
+                        TextView textview3 = new TextView(getApplicationContext());
+                        textview3.setText("" + flag);
+                        tableRows[j].addView(textview1);
+                        tableRows[j].addView(textview2);
+                        tableRows[j].addView(textview3);
+                        tableLayout.addView(tableRows[j]);
+                    }
+
+//                    count++;
+//                    textDesc1.setText("All set " + count);
+//                    textVal1.setText("All set " + count);
+//                    textBool1.setText("All set " + count);
+//                    textDesc2.setText("All set " + count);
+//                    textVal2.setText("All set " + count);
+//                    textBool2.setText("All set " + count);
+//                    textDesc3.setText("All set " + count);
+//                    textVal3.setText("All set " + count);
+//                    textBool3.setText("All set " + count);
+//                    textDesc4.setText("All set " + count);
+//                    textVal4.setText("All set " + count);
+//                    textBool4.setText("All set " + count);
                 }
             }
 
@@ -222,6 +252,10 @@ public class Display1Activity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), Display2Activity.class);
+                intent.putExtra("location1", spinner1.getSelectedItem().toString());
+                intent.putExtra("location2", spinner2.getSelectedItem().toString());
+                intent.putExtra("location3", spinner3.getSelectedItem().toString());
+                intent.putExtra("location4", spinner4.getSelectedItem().toString());
                 startActivity(intent);
             }
         });
