@@ -1,10 +1,13 @@
 package com.example.susan.myapplication;
 
+import android.app.ActionBar;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.provider.ContactsContract;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Layout;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -30,11 +33,7 @@ public class Display1Activity extends AppCompatActivity {
     Spinner spinner1, spinner2, spinner3, spinner4;
     ArrayAdapter<String> defaultAdapter;
     TableLayout tableLayout;
-    TableRow[] tableRows;
-//    TextView textDesc1, textVal1, textBool1,
-//            textDesc2, textVal2, textBool2,
-//            textDesc3, textVal3, textBool3,
-//            textDesc4, textVal4, textBool4;
+    LinearLayout verticalLayout;
 
     final String nothing = "선택";
     int count = 0;
@@ -43,7 +42,6 @@ public class Display1Activity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_display1);
-        final Context context = this;
         buttonBack = (ImageButton)findViewById(R.id.buttonBack);
         buttonMove = (Button)findViewById(R.id.buttonMove);
 
@@ -55,24 +53,9 @@ public class Display1Activity extends AppCompatActivity {
         tableLayout = (TableLayout)findViewById(R.id.tableLayout);
         TableLayout.LayoutParams lp = new TableLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
 
-//        textDesc1 = (TextView)findViewById(R.id.text_c1_description);
-//        textVal1 = (TextView)findViewById(R.id.text_c1_val);
-//        textBool1 = (TextView)findViewById(R.id.text_c1_bool);
-//
-//        textDesc2 = (TextView)findViewById(R.id.text_c2_description);
-//        textVal2 = (TextView)findViewById(R.id.text_c2_val);
-//        textBool2 = (TextView)findViewById(R.id.text_c2_bool);
-//
-//        textDesc3 = (TextView)findViewById(R.id.text_c3_description);
-//        textVal3 = (TextView)findViewById(R.id.text_c3_val);
-//        textBool3 = (TextView)findViewById(R.id.text_c3_bool);
-//
-//        textDesc4 = (TextView)findViewById(R.id.text_c4_description);
-//        textVal4 = (TextView)findViewById(R.id.text_c4_val);
-//        textBool4 = (TextView)findViewById(R.id.text_c4_bool);
 
         // defaultAdapter 생성
-        defaultAdapter = new ArrayAdapter<String>(context,
+        defaultAdapter = new ArrayAdapter<String>(getApplicationContext(),
                 R.layout.support_simple_spinner_dropdown_item,
                 new String[]{nothing});
 
@@ -91,10 +74,9 @@ public class Display1Activity extends AppCompatActivity {
         list1.add(0, nothing);
 
         // spinner1에게 arrayAdapter 줭
-        spinner1.setAdapter(new ArrayAdapter<String>(context,
+        spinner1.setAdapter(new ArrayAdapter<String>(getApplicationContext(),
                 R.layout.support_simple_spinner_dropdown_item,
                 list1));
-        spinner1.setSelection(0);
 
 
         // spinner1의 item이 선택되었을 때
@@ -202,35 +184,51 @@ public class Display1Activity extends AppCompatActivity {
                     double val = 7;
                     boolean flag = (val >=c1 && val <= c2);
                     String unit = "cm";
+
                     // datapoint의 개수만큼 tableRow 생성
-                    tableRows = new TableRow[nDataPoint];
                     for (int j = 0; j < nDataPoint; j++) {
-                        tableRows[j] = new TableRow(getApplicationContext());
+                        TableRow tr = new TableRow(getApplicationContext());
+                        //LinearLayout hl = new LinearLayout(getApplicationContext());
+                        tr.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+                        //hl.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
                         TextView textview1 = new TextView(getApplicationContext());
                         textview1.setText("C["+j+"].Desc");
-                        TextView textview2 = new TextView(getApplicationContext());
-                        textview2.setText(val + " " + unit);
+                        textview1.setTextColor(Color.BLUE);
+                        textview1.setTextSize(20);
+                        textview1.setWidth(300);
+                        textview1.setHeight(300);
+                        textview1.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+
+                        LinearLayout vl = new LinearLayout(getApplicationContext());
+                        vl.setOrientation(LinearLayout.VERTICAL);
+                        TextView textview2_1 = new TextView(getApplicationContext());
+                        textview2_1.setText("C"+j+".val1~C"+j+".val2");
+                        textview2_1.setTextSize(16);
+                        textview2_1.setTextAlignment(View.TEXT_ALIGNMENT_TEXT_END);
+                        TextView textview2_2 = new TextView(getApplicationContext());
+                        textview2_2.setText(val + " " + unit);
+                        textview2_2.setTextSize(20);
+                        textview2_2.setWidth(500);
+                        textview2_2.setHeight(300);
+                        textview2_2.setTextAlignment(View.TEXT_ALIGNMENT_TEXT_END);
+                        vl.addView(textview2_1);
+                        vl.addView(textview2_2);
+
                         TextView textview3 = new TextView(getApplicationContext());
-                        textview3.setText("" + flag);
-                        tableRows[j].addView(textview1);
-                        tableRows[j].addView(textview2);
-                        tableRows[j].addView(textview3);
-                        tableLayout.addView(tableRows[j]);
+                        if(flag)
+                            textview3.setText("O");
+                        else
+                            textview3.setText("X");
+                        textview3.setTextSize(30);
+                        textview3.setWidth(300);
+                        textview3.setHeight(300);
+                        textview3.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+                        tr.addView(textview1);
+                        tr.addView(vl);
+                        tr.addView(textview3);
+                        tableLayout.addView(tr);
                     }
 
-//                    count++;
-//                    textDesc1.setText("All set " + count);
-//                    textVal1.setText("All set " + count);
-//                    textBool1.setText("All set " + count);
-//                    textDesc2.setText("All set " + count);
-//                    textVal2.setText("All set " + count);
-//                    textBool2.setText("All set " + count);
-//                    textDesc3.setText("All set " + count);
-//                    textVal3.setText("All set " + count);
-//                    textBool3.setText("All set " + count);
-//                    textDesc4.setText("All set " + count);
-//                    textVal4.setText("All set " + count);
-//                    textBool4.setText("All set " + count);
                 }
             }
 
