@@ -26,4 +26,12 @@
         <item>d3</item>
         <item>d4</item>
     </string-array>
+
+    <string-array name="date1">
+        <item>날짜1</item>
+    </string-array>
+
+    <string-array name="date2">
+        <item>날짜2</item>
+    </string-array>
 </resources>

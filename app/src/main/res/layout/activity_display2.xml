@@ -59,7 +59,7 @@
 
             <Spinner
                 android:id="@+id/spinner"
-                android:layout_width="66dp"
+                android:layout_width="64dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:entries="@array/list1"
@@ -67,22 +67,20 @@
                 tools:layout_editor_absoluteY="148dp" />
 
             <Spinner
-                android:id="@+id/spinner2"
+                android:id="@+id/datePicker1"
                 android:layout_width="66dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:entries="@array/list2"
-                tools:layout_editor_absoluteX="93dp"
-                tools:layout_editor_absoluteY="78dp" />
+                android:entries="@array/date1"
+                android:text="날짜1"/>
 
             <Spinner
-                android:id="@+id/spinner3"
+                android:id="@+id/datePicker2"
                 android:layout_width="66dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:entries="@array/list3"
-                tools:layout_editor_absoluteX="179dp"
-                tools:layout_editor_absoluteY="78dp" />
+                android:entries="@array/date2"
+                android:text="날짜2"/>
 
             <Button
                 android:id="@+id/buttonMove"
