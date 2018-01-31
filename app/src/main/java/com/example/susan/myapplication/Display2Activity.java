@@ -3,6 +3,7 @@ package com.example.susan.myapplication;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.Spinner;
@@ -15,7 +16,9 @@ public class Display2Activity extends AppCompatActivity {
     ImageButton buttonBack;
     Button buttonMove;
     Spinner spinner1, spinner2, spinner3;
-LineGraphSeries<DataPoint> series;
+    GraphView graphView;
+    LineGraphSeries<DataPoint> series;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,6 +28,22 @@ LineGraphSeries<DataPoint> series;
         spinner1 = (Spinner)findViewById(R.id.spinner1);
         spinner2 = (Spinner)findViewById(R.id.spinner2);
         spinner3 = (Spinner)findViewById(R.id.spinner3);
+
+        graphView = (GraphView)findViewById(R.id.graph);
+        graphView.setTitle("기간별 조회");
+        graphView.setTitleTextSize(64);
+
+//        spinner1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
+//            @Override
+//            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+//
+//            }
+//
+//            @Override
+//            public void onNothingSelected(AdapterView<?> adapterView) {
+//
+//            }
+//        });
 
         buttonBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -44,13 +63,12 @@ LineGraphSeries<DataPoint> series;
         double y, x;
         x = -5.0;
 
-        GraphView graph = (GraphView)findViewById(R.id.graph);
         series = new LineGraphSeries<DataPoint>();
         for(int i=0; i<500; i++){
             x= x+0.1;
             y= Math.sin(x);
             series.appendData(new DataPoint(x,y),true, 500);
         }
-        graph.addSeries(series);
+        graphView.addSeries(series);
     }
 }

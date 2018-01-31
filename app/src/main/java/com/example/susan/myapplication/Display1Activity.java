@@ -15,6 +15,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TableLayout;
 import android.widget.TableRow;
@@ -32,8 +33,9 @@ public class Display1Activity extends AppCompatActivity {
     Button buttonMove;
     Spinner spinner1, spinner2, spinner3, spinner4;
     ArrayAdapter<String> defaultAdapter;
-    TableLayout tableLayout;
+//    TableLayout tableLayout;
     LinearLayout verticalLayout;
+    ListView listView;
 
     final String nothing = "선택";
     int count = 0;
@@ -50,9 +52,9 @@ public class Display1Activity extends AppCompatActivity {
         spinner3 = (Spinner)findViewById(R.id.spinner3);
         spinner4 = (Spinner)findViewById(R.id.spinner4);
 
-        tableLayout = (TableLayout)findViewById(R.id.tableLayout);
-        TableLayout.LayoutParams lp = new TableLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-
+//        tableLayout = (TableLayout)findViewById(R.id.tableLayout);
+//        TableLayout.LayoutParams lp = new TableLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+        listView = (ListView)findViewById(R.id.listView);
 
         // defaultAdapter 생성
         defaultAdapter = new ArrayAdapter<String>(getApplicationContext(),
@@ -64,19 +66,12 @@ public class Display1Activity extends AppCompatActivity {
         spinner3.setAdapter(defaultAdapter);
         spinner4.setAdapter(defaultAdapter);
 
-        // On create, spinner1의 list를 받아온다.
-        // DB에서 String 배열 받아온다 !!!!
-        // String[] items = 어쩌고저쩌고
-        String[] spinnerList1 = {"가져온 a1", "가져온 a2", "가져온 a3", "가져온 a4"};
-        ArrayList<String> list1 = new ArrayList<>();
-        Collections.addAll(list1,spinnerList1);
-        // 선택되지 않았을 때 값 추가
-        list1.add(0, nothing);
+
 
         // spinner1에게 arrayAdapter 줭
         spinner1.setAdapter(new ArrayAdapter<String>(getApplicationContext(),
                 R.layout.support_simple_spinner_dropdown_item,
-                list1));
+                makeSpinnerListFrom("http://asdfafds.com", 1)));
 
 
         // spinner1의 item이 선택되었을 때
@@ -90,15 +85,9 @@ public class Display1Activity extends AppCompatActivity {
                     spinner4.setAdapter(defaultAdapter);
                 }
                 else {
-                    String[] spinnerList2 = {"가져온 b1", "가져온 b2", "가져온 b3", "가져온 b4"};
-                    ArrayList<String> list2 = new ArrayList<>();
-                    Collections.addAll(list2, spinnerList2);
-                    // 선택되지 않았을 때 값 추가
-                    list2.add(0, nothing);
-
                     spinner2.setAdapter(new ArrayAdapter<String>(getApplicationContext(),
                             R.layout.support_simple_spinner_dropdown_item,
-                            list2));
+                            makeSpinnerListFrom("http://asdfafds.com", 2)));
 
                     //하위 스피너 초기화
                     spinner3.setAdapter(defaultAdapter);
@@ -122,15 +111,9 @@ public class Display1Activity extends AppCompatActivity {
                     spinner4.setAdapter(defaultAdapter);
                 }
                 else {
-                    String[] spinnerList3 = {"가져온 c1", "가져온 c2", "가져온 c3", "가져온 c4"};
-                    ArrayList<String> list3 = new ArrayList<>();
-                    Collections.addAll(list3, spinnerList3);
-                    // 선택되지 않았을 때 값 추가
-                    list3.add(0, nothing);
-
                     spinner3.setAdapter(new ArrayAdapter<String>(getApplicationContext(),
                             R.layout.support_simple_spinner_dropdown_item,
-                            list3));
+                            makeSpinnerListFrom("http://asdfafds.com", 3)));
 
                     // 하위 스피너 초기화
                     spinner4.setAdapter(defaultAdapter);
@@ -153,15 +136,9 @@ public class Display1Activity extends AppCompatActivity {
                     spinner4.setAdapter(defaultAdapter);
                 }
                 else {
-                    String[] spinnerList4 = {"가져온 d1", "가져온 d2", "가져온 d3", "가져온 d4"};
-                    ArrayList<String> list4 = new ArrayList<>();
-                    Collections.addAll(list4, spinnerList4);
-                    // 선택되지 않았을 때 값 추가
-                    list4.add(0, nothing);
-
                     spinner4.setAdapter(new ArrayAdapter<String>(getApplicationContext(),
                             R.layout.support_simple_spinner_dropdown_item,
-                            list4));
+                            makeSpinnerListFrom("http://asdfafds.com", 4)));
                 }
             }
 
@@ -182,54 +159,26 @@ public class Display1Activity extends AppCompatActivity {
                     double c1 = 5;
                     double c2 = 10;
                     double val = 7;
-                    boolean flag = (val >=c1 && val <= c2);
+                    boolean flag = (val >= c1 && val <= c2);
                     String unit = "cm";
 
-                    // datapoint의 개수만큼 tableRow 생성
+                    // Adapter 생성
+                    ListviewAdapter adapter = new ListviewAdapter();
+
+                    // 리스트뷰 참조 및 Adapter 담기
+                    listView = findViewById(R.id.listView);
+
                     for (int j = 0; j < nDataPoint; j++) {
-                        TableRow tr = new TableRow(getApplicationContext());
-                        //LinearLayout hl = new LinearLayout(getApplicationContext());
-                        tr.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-                        //hl.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-                        TextView textview1 = new TextView(getApplicationContext());
-                        textview1.setText("C["+j+"].Desc");
-                        textview1.setTextColor(Color.BLUE);
-                        textview1.setTextSize(20);
-                        textview1.setWidth(300);
-                        textview1.setHeight(300);
-                        textview1.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
-
-                        LinearLayout vl = new LinearLayout(getApplicationContext());
-                        vl.setOrientation(LinearLayout.VERTICAL);
-                        TextView textview2_1 = new TextView(getApplicationContext());
-                        textview2_1.setText("C"+j+".val1~C"+j+".val2");
-                        textview2_1.setTextSize(16);
-                        textview2_1.setTextAlignment(View.TEXT_ALIGNMENT_TEXT_END);
-                        TextView textview2_2 = new TextView(getApplicationContext());
-                        textview2_2.setText(val + " " + unit);
-                        textview2_2.setTextSize(20);
-                        textview2_2.setWidth(500);
-                        textview2_2.setHeight(300);
-                        textview2_2.setTextAlignment(View.TEXT_ALIGNMENT_TEXT_END);
-                        vl.addView(textview2_1);
-                        vl.addView(textview2_2);
-
-                        TextView textview3 = new TextView(getApplicationContext());
-                        if(flag)
-                            textview3.setText("O");
-                        else
-                            textview3.setText("X");
-                        textview3.setTextSize(30);
-                        textview3.setWidth(300);
-                        textview3.setHeight(300);
-                        textview3.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
-                        tr.addView(textview1);
-                        tr.addView(vl);
-                        tr.addView(textview3);
-                        tableLayout.addView(tr);
+                        if (flag) {
+                            adapter.addItem("C[" + j + "].Des", "C" + j + ".val1~C" + j + ".val2", val + " " + unit, "O");
+                        } else {
+                            adapter.addItem("C[" + j + "].Des", "C" + j + ".val1~C" + j + ".val2", val + " " + unit, "X");
+                        }
                     }
 
+                    listView.setAdapter(adapter);
                 }
+
             }
 
             @Override
@@ -258,5 +207,19 @@ public class Display1Activity extends AppCompatActivity {
             }
         });
 
+    }
+
+    private ArrayList<String> makeSpinnerListFrom(String url, int locationNumber) {
+        String url1 = url;
+
+        // url로부터 데이터 가져와
+        // parsing작업 해서 중복없는 location 정보 갖고오기
+
+        String[] locations = {"가져온 "+locationNumber+"A", "가져온 "+locationNumber+"B", "가져온 "+locationNumber+"C", "가져온 "+locationNumber+"D"};
+        ArrayList<String> list = new ArrayList<>();
+        Collections.addAll(list, locations);
+        list.add(0, "선택");
+
+        return list;
     }
 }
