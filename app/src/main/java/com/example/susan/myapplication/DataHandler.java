@@ -18,6 +18,7 @@ public class DataHandler extends AsyncTask<Void, Void, String> {
     // location추리는거
     private HashSet<Integer> location1IDs, location2IDs, location3IDs, location4IDs;
 
+
     public DataHandler(String url, ContentValues values) {
 
         this.url = url;
@@ -35,6 +36,14 @@ public class DataHandler extends AsyncTask<Void, Void, String> {
         location1IDs = new HashSet<>();
         for(int i=0; i<data.length; i++)
             location1IDs.add(i);
+    }
+
+    public DataHandler(String[] dataIDs) {
+        location4IDs = new HashSet<>();
+        for (String number: dataIDs)
+            location4IDs.add(Integer.parseInt(number));
+        //TODO dddddddddddddddddddddddddd
+        System.out.print(location4IDs);
     }
 
     @Override
@@ -146,6 +155,9 @@ public class DataHandler extends AsyncTask<Void, Void, String> {
     public HashSet<Integer> getLocation4IDs() {
         return location4IDs;
     }
+
+
+
     public String[][] getData() {
         return data;
     }

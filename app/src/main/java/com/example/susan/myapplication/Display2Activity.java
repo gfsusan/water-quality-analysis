@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Adapter;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.ImageButton;
@@ -31,12 +33,14 @@ public class Display2Activity extends AppCompatActivity {
     GraphView graphView;
     LineGraphSeries<DataPoint> series;
     GregorianCalendar calendar;
+    DataHandler dh;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_display2);
         intent = getIntent();
+        dh = new DataHandler(intent.getStringArrayExtra("dataIDs"));
 
         buttonBack = (ImageButton)findViewById(R.id.buttonBack);
 
@@ -67,6 +71,8 @@ public class Display2Activity extends AppCompatActivity {
 //                dialog.show();
 //            }
 //        });
+        spinner1.setAdapter(new ArrayAdapter<String>(getApplicationContext(), R.layout.support_simple_spinner_dropdown_item, //////)));
+
 
 
         buttonMove.setOnClickListener(new View.OnClickListener(){

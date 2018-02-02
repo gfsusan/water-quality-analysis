@@ -216,10 +216,7 @@ public class Display1Activity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), Display2Activity.class);
-                intent.putExtra("location1", spinner1.getSelectedItem().toString());
-                intent.putExtra("location2", spinner2.getSelectedItem().toString());
-                intent.putExtra("location3", spinner3.getSelectedItem().toString());
-                intent.putExtra("location4", spinner4.getSelectedItem().toString());
+                intent.putExtra("dataIDs", dh.getLocation4IDs().toArray());
                 startActivity(intent);
             }
         });
