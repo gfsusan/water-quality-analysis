@@ -85,4 +85,14 @@ public class ListviewAdapter extends BaseAdapter {
 
         dataViewList.add(dv);
     }
+
+    public void addItem(String[] items) {
+        DataView dv = new DataView();
+        dv.setDescriptionText(items[0]);
+        dv.setConstraintsText(items[1]);
+        dv.setValueText(items[2]);
+        dv.setFlagTV(items[3]);
+
+        dataViewList.add(dv);
+    }
 }

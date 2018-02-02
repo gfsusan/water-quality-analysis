@@ -189,12 +189,8 @@ public class Display1Activity extends AppCompatActivity {
                     // 리스트뷰 참조 및 Adapter 담기
                     listView = findViewById(R.id.listView);
 
-                    for (int j = 0; j < nDataPoint; j++) {
-                        if (flag) {
-                            adapter.addItem("C[" + j + "].Des", "C" + j + ".val1~C" + j + ".val2", val + " " + unit, "O");
-                        } else {
-                            adapter.addItem("C[" + j + "].Des", "C" + j + ".val1~C" + j + ".val2", val + " " + unit, "X");
-                        }
+                    for (int id: dh.getLocation4IDs()) {
+                        adapter.addItem(dh.getCriteriaData(id));
                     }
 
                     listView.setAdapter(adapter);

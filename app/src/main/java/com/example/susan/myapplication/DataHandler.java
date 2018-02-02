@@ -127,7 +127,25 @@ public class DataHandler extends AsyncTask<Void, Void, String> {
         return location4s;
     }
 
+    public String[] getCriteriaData(int i) {
+        String[] result = new String[4];
+        result[0] = data[i][14];
+        if(Double.parseDouble(data[i][13]) == -9999.0)
+            result[1] = "< " + data[i][12];
+        else
+            result[1] = data[i][13] + " ~ " + data[i][12];
+        result[2] = data[i][9] + " " + data[i][15];
+        if(data[i][10].equals("1")){
+            result[3] = "O";
+        } else
+            result[3] = "X";
 
+        return result;
+    }
+
+    public HashSet<Integer> getLocation4IDs() {
+        return location4IDs;
+    }
     public String[][] getData() {
         return data;
     }
