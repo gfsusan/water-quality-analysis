@@ -45,7 +45,7 @@ public class Display1Activity extends AppCompatActivity {
 
     String url = "http://165.194.35.103:8181/helloWeb/HServlet";
     DataHandler dh;
-    String location1, location2, location3, location4;
+    String location1, location2, location3;
     final String nothing = "선택";
 
 

@@ -65,15 +65,6 @@ public class Display2Activity extends AppCompatActivity {
             }
         });
 
-//        // 날짜 선택
-//        calendar = new GregorianCalendar();
-//        datePicker1.setOnClickListener(new View.OnClickListener(){
-//            @Override
-//            public void onClick(View view) {
-//                DatePickerDialog dialog = new DatePickerDialog(getApplicationContext(), listener, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DATE));
-//                dialog.show();
-//            }
-//        });
 //TODO zdsfasfsdsd f
 //        spinner1.setAdapter(new ArrayAdapter<String>(getApplicationContext(), R.layout.support_simple_spinner_dropdown_item,
 
