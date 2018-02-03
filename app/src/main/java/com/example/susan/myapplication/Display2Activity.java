@@ -31,7 +31,11 @@ public class Display2Activity extends AppCompatActivity {
     Spinner spinner;
     EditText datePicker1, datePicker2;
     SimpleDateFormat dateFormat;
+    String criteria;
+    Date d1, d2;
+
     Button buttonMove;
+
     GraphView graphView;
     LineGraphSeries<DataPoint> series;
     GregorianCalendar calendar;
@@ -77,9 +81,10 @@ public class Display2Activity extends AppCompatActivity {
         // '이동' 버튼 누르면 그래프 생성
             @Override
             public void onClick(View v){
+                criteria = spinner.getSelectedItem().toString();
                 try {
-                    Date d1 = dateFormat.parse(datePicker1.getText().toString());
-                    Date d2 = dateFormat.parse(datePicker2.getText().toString());
+                    d1 = dateFormat.parse(datePicker1.getText().toString());
+                    d2 = dateFormat.parse(datePicker2.getText().toString());
                     System.out.println(d1);
                     System.out.println(d2);
                 } catch (ParseException e) {
@@ -92,46 +97,22 @@ public class Display2Activity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "항목을 선택하세요",
                             Toast.LENGTH_SHORT);
                     return;
+                } else {
+
+                    //series.appendData 도 있음
+                    series = new LineGraphSeries<DataPoint>(dh.getDataPointsBetween(d1, d2, criteria));
+
+                    graphView.addSeries(series);
+
+                    // set date label formatter
+                    graphView.getGridLabelRenderer().setLabelFormatter(new DateAsXAxisLabelFormatter(getApplicationContext()));
+                    graphView.getGridLabelRenderer().setNumHorizontalLabels(3);
+
+                    // graphView x bound 세우기
+                    graphView.getViewport().setMinX(d1.getTime());
+                    graphView.getViewport().setMaxX(d2.getTime());
+                    graphView.getViewport().setXAxisBoundsManual(true);
                 }
-
-
-                // x axis: date인 graphview
-                // 데이터
-                Calendar calendar = Calendar.getInstance();
-                Date d1 = calendar.getTime();
-                calendar.add(Calendar.DATE, 1);
-                Date d2 = calendar.getTime();
-                calendar.add(Calendar.DATE, 1);
-                Date d3 = calendar.getTime();
-
-                String dateString = "180123-12:34";
-                SimpleDateFormat dateFormat = new SimpleDateFormat("yyMMdd-hh:mm");
-                Date date = new Date();
-                try{
-                    date = dateFormat.parse(dateString);
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                }
-                //series.appendData 도 있음
-                series = new LineGraphSeries<DataPoint>(new DataPoint[] {
-                        new DataPoint(d1, 1), new DataPoint(d2, 5), new DataPoint(d3, 3), new DataPoint(date, 8)
-                });
-                graphView.addSeries(series);
-
-                // set date label formatter
-                graphView.getGridLabelRenderer().setLabelFormatter(new DateAsXAxisLabelFormatter(getApplicationContext()));
-                graphView.getGridLabelRenderer().setNumHorizontalLabels(3);
-
-                // graphView x bound 세우기
-                graphView.getViewport().setMinX(date.getTime());
-                graphView.getViewport().setMaxX(d3.getTime());
-                graphView.getViewport().setXAxisBoundsManual(true);
-
-                System.out.println(date);
-                System.out.println(d1);
-                System.out.println(d2);
-                System.out.println(d3);
-
             }
         });
 
