@@ -112,7 +112,7 @@ public class Display2Activity extends AppCompatActivity {
 
                     // set date label formatter
                     graphView.getGridLabelRenderer().setLabelFormatter(new DateAsXAxisLabelFormatter(getApplicationContext()));
-//                    graphView.getGridLabelRenderer().setNumHorizontalLabels(3);
+                    graphView.getGridLabelRenderer().setNumHorizontalLabels(4);
 
                     // graphView x bound 세우기
                     graphView.getViewport().setMinX(d1.getTime());
