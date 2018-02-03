@@ -2,12 +2,10 @@ package com.example.susan.myapplication;
 
 import com.jjoe64.graphview.series.DataPoint;
 
-import java.lang.reflect.Array;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Collections;
 import java.util.Date;
 import java.util.HashSet;
 
@@ -52,6 +50,9 @@ public class DataHandler2 {
         c.add(Calendar.DATE, 1);
         endDate = c.getTime();
 
+        if(dataIDs.size()==0)
+            return new DataPoint[0];
+
         for (int i:dataIDs) {
             try {
                 Date date = dateFormat.parse(locationData.get(i)[8]);
@@ -65,16 +66,6 @@ public class DataHandler2 {
             }
 
         }
-//
-//        try {
-//            SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
-//            Date a1 = sdf.parse("20180121");
-//            Date a2 = sdf.parse("20180112");
-//            dataPoints[dataIDs.size()] = new DataPoint(a1, 8);
-//            dataPoints[dataIDs.size()+1] = new DataPoint(a2, 5);
-//        } catch (ParseException e) {
-//            e.printStackTrace();
-//        }
         return dataPoints;
     }
 

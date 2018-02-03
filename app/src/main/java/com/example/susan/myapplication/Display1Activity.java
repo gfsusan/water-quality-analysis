@@ -56,13 +56,7 @@ public class Display1Activity extends AppCompatActivity {
 
         dh = new DataHandler(url, null);
         dh.execute();
-//        ArrayList<String[]> data = dh.getData();
-//            for (String[] a : data) {
-//                for (String b : a) {
-//                    System.out.print(b);
-//                    Log.d(this.getClass().getName(), b);
-//                }
-//            }
+
         buttonBack = (ImageButton)findViewById(R.id.buttonBack);
         buttonMove = (Button)findViewById(R.id.buttonMove);
 

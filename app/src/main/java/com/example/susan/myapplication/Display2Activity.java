@@ -38,8 +38,7 @@ public class Display2Activity extends AppCompatActivity {
 
     GraphView graphView;
     LineGraphSeries<DataPoint> series;
-    GregorianCalendar calendar;
-
+    DataPoint[] dataPoints;
     String url = "http://165.194.35.103:8181/helloWeb/HServlet";
     DataHandler2 dh;
 
@@ -93,25 +92,52 @@ public class Display2Activity extends AppCompatActivity {
                             Toast.LENGTH_SHORT);
                     return;
                 }
+
+                dataPoints = dh.getDataPointsBetween(d1,d2,criteria);
+
                 if(spinner.getSelectedItemId()==0) {
                     Toast.makeText(getApplicationContext(), "항목을 선택하세요",
                             Toast.LENGTH_SHORT);
                     return;
-                } else {
+                } else if (dataPoints.length != 0) {
 
-                    //series.appendData 도 있음
-                    series = new LineGraphSeries<DataPoint>(dh.getDataPointsBetween(d1, d2, criteria));
+                    series = new LineGraphSeries<>(dh.getDataPointsBetween(d1, d2, criteria));
+
+                    // styling options
+                    series.setThickness(8);
+                    series.setDrawDataPoints(true);
+                    series.setDataPointsRadius(10);
 
                     graphView.addSeries(series);
 
                     // set date label formatter
                     graphView.getGridLabelRenderer().setLabelFormatter(new DateAsXAxisLabelFormatter(getApplicationContext()));
-                    graphView.getGridLabelRenderer().setNumHorizontalLabels(3);
+//                    graphView.getGridLabelRenderer().setNumHorizontalLabels(3);
 
                     // graphView x bound 세우기
                     graphView.getViewport().setMinX(d1.getTime());
                     graphView.getViewport().setMaxX(d2.getTime());
+
+                    if(criteria.equals("PH")) {
+                        graphView.getViewport().setMinY(5.5);
+                        graphView.getViewport().setMaxY(8.5);
+                    } else if (criteria.equals("온도")) {
+                        graphView.getViewport().setMinY(-20);
+                        graphView.getViewport().setMaxY(50);
+                    } else if (criteria.equals("잔류염소")) {
+                        graphView.getViewport().setMinY(0.2);
+                        graphView.getViewport().setMaxY(1.1);
+                    } else if (criteria.equals("탁도")) {
+                        graphView.getViewport().setMinY(0);
+                        graphView.getViewport().setMaxY(2.5);
+                    }
+
+
                     graphView.getViewport().setXAxisBoundsManual(true);
+
+                } else {
+                    Toast.makeText(getApplicationContext(), "해당 기간에 데이터가 없습니다.", Toast.LENGTH_SHORT);
+                    return;
                 }
             }
         });
