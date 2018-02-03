@@ -40,13 +40,13 @@ public class DataHandler2 {
     }
 
     DataPoint[] getDataPointsBetween(Date startDate, Date endDate, String criteria) {
+        // criteria에 해당하는 모든 데이터의 id 갖고오기
         ArrayList<Integer> dataIDs = getCriteriaDataIDs(criteria);
-        ArrayList<Integer> dataPointIDs = new ArrayList<>();
         DataPoint[] dataPoints = new DataPoint[dataIDs.size()];
 //        DataPoint[] dataPoints = new DataPoint[dataIDs.size() + 2];
 
         int ptr = 0;
-        // endDate의 데이터를 포함해야하므로
+        // endDate의 데이터를 포함해야하므로 endDate에 하루 추가
         Calendar c = Calendar.getInstance();
         c.setTime(endDate);
         c.add(Calendar.DATE, 1);
@@ -78,6 +78,7 @@ public class DataHandler2 {
         return dataPoints;
     }
 
+    // criteria에 해당하는 모든 데이터 id 가지고오기
     private ArrayList<Integer> getCriteriaDataIDs (String criteria) {
         ArrayList<Integer> dataIDs = new ArrayList<>();
         for (int i = 0; i < locationData.size(); i++) {
@@ -85,7 +86,6 @@ public class DataHandler2 {
                 dataIDs.add(i);
             }
         }
-
 
         return dataIDs;
     }
