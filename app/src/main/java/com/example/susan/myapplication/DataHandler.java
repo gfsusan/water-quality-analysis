@@ -5,6 +5,9 @@ import android.os.AsyncTask;
 import android.util.Log;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Dictionary;
+import java.util.HashMap;
 import java.util.HashSet;
 
 /**
@@ -128,6 +131,17 @@ public class DataHandler extends AsyncTask<Void, Void, String> {
         return location4s;
     }
 
+    public ArrayList<Integer> getCriteriaDataIDs() {
+        HashMap<String, Integer> hashMap = new HashMap<>();
+        ArrayList<Integer> a = new ArrayList<>();
+        for (int i: location4IDs) {
+            hashMap.put(data.get(i)[14],i);
+        }
+        for (String key: hashMap.keySet()) {
+            a.add(hashMap.get(key));
+        }
+        return a;
+    }
     public String[] getCriteriaData(int i) {
         String[] result = new String[4];
         result[0] = data.get(i)[14];

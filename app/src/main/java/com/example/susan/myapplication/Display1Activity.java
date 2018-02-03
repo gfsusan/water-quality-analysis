@@ -173,22 +173,13 @@ public class Display1Activity extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                     // 선택되면 화면중앙부분 text set
                 if(spinner4.getSelectedItemPosition() != 0) {
-                    //TODO dfsfafsdf
-                    // 해당 station의 datapoint 개수를 받아온다.
-                    int nDataPoint = 5;
-                    double c1 = 5;
-                    double c2 = 10;
-                    double val = 7;
-                    boolean flag = (val >= c1 && val <= c2);
-                    String unit = "cm";
-
                     // Adapter 생성
                     ListviewAdapter adapter = new ListviewAdapter();
 
                     // 리스트뷰 참조 및 Adapter 담기
                     listView = findViewById(R.id.listView);
 
-                    for (int id: dh.getLocation4IDs()) {
+                    for (int id: dh.getCriteriaDataIDs()) {
                         adapter.addItem(dh.getCriteriaData(id));
                     }
 
