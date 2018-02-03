@@ -19,6 +19,15 @@ public class DataHandler2 {
         }
     }
 
-
+    ArrayList<String> getCriterias() {
+        ArrayList<String> a = new ArrayList<>();
+        HashSet<String> b = new HashSet<>();
+        for (String[] line:locationData) {
+            if(!a.contains(line[12]))
+                a.add(line[14]);
+        }
+        a.add(0, "선택");
+        return a;
+    }
 
 }

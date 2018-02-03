@@ -28,8 +28,9 @@ import java.util.GregorianCalendar;
 public class Display2Activity extends AppCompatActivity {
     Intent intent;
     ImageButton buttonBack;
-    Spinner spinner1;
+    Spinner spinner;
     EditText datePicker1, datePicker2;
+    SimpleDateFormat dateFormat;
     Button buttonMove;
     GraphView graphView;
     LineGraphSeries<DataPoint> series;
@@ -44,10 +45,14 @@ public class Display2Activity extends AppCompatActivity {
         setContentView(R.layout.activity_display2);
         intent = getIntent();
         dh = new DataHandler2(intent.getStringArrayExtra("dataLines"));
-
+        dateFormat = new SimpleDateFormat("yyyyMMdd");
         buttonBack = (ImageButton)findViewById(R.id.buttonBack);
 
-        spinner1 = (Spinner)findViewById(R.id.spinner1);
+        spinner = (Spinner)findViewById(R.id.spinner);
+        spinner.setAdapter(new ArrayAdapter<String>(getApplicationContext(),
+                R.layout.support_simple_spinner_dropdown_item,
+                dh.getCriterias()));
+
         datePicker1 = (EditText) findViewById(R.id.datePicker1);
         datePicker2 = (EditText) findViewById(R.id.datePicker2);
 
@@ -65,8 +70,6 @@ public class Display2Activity extends AppCompatActivity {
             }
         });
 
-//TODO zdsfasfsdsd f
-//        spinner1.setAdapter(new ArrayAdapter<String>(getApplicationContext(), R.layout.support_simple_spinner_dropdown_item,
 
 
 
@@ -74,6 +77,24 @@ public class Display2Activity extends AppCompatActivity {
         // '이동' 버튼 누르면 그래프 생성
             @Override
             public void onClick(View v){
+                try {
+                    Date d1 = dateFormat.parse(datePicker1.getText().toString());
+                    Date d2 = dateFormat.parse(datePicker2.getText().toString());
+                    System.out.println(d1);
+                    System.out.println(d2);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                    Toast.makeText(getApplicationContext(), "날짜를 확인하세요",
+                            Toast.LENGTH_SHORT);
+                    return;
+                }
+                if(spinner.getSelectedItemId()==0) {
+                    Toast.makeText(getApplicationContext(), "항목을 선택하세요",
+                            Toast.LENGTH_SHORT);
+                    return;
+                }
+
+
                 // x axis: date인 graphview
                 // 데이터
                 Calendar calendar = Calendar.getInstance();
