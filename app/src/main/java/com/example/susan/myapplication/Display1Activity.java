@@ -23,6 +23,7 @@ import android.widget.Spinner;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.w3c.dom.Text;
 
@@ -36,15 +37,14 @@ import java.util.Collections;
 import java.util.List;
 
 public class Display1Activity extends AppCompatActivity {
-    DataHandler dh;
     ImageButton buttonBack;
     Button buttonMove;
     Spinner spinner1, spinner2, spinner3, spinner4;
     ArrayAdapter<String> defaultAdapter;
-//    TableLayout tableLayout;
-    LinearLayout verticalLayout;
     ListView listView;
 
+    String url = "http://165.194.35.103:8181/helloWeb/HServlet";
+    DataHandler dh;
     String location1, location2, location3, location4;
     final String nothing = "선택";
 
@@ -54,10 +54,9 @@ public class Display1Activity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_display1);
 
-        String url = "http://165.194.35.103:8181/helloWeb/HServlet";
         dh = new DataHandler(url, null);
         dh.execute();
-        String[][] data = dh.getData();
+//        ArrayList<String[]> data = dh.getData();
 //            for (String[] a : data) {
 //                for (String b : a) {
 //                    System.out.print(b);
@@ -215,26 +214,16 @@ public class Display1Activity extends AppCompatActivity {
             // '이동' 버튼 누르면 다음화면으로 이동
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), Display2Activity.class);
-                intent.putExtra("dataIDs", dh.getLocation4IDs().toArray());
-                startActivity(intent);
+                if (spinner4.getSelectedItemId() != 0) {
+                    Intent intent = new Intent(getApplicationContext(), Display2Activity.class);
+                    intent.putExtra("dataLines", dh.getLocationData());
+                    startActivity(intent);
+                } else
+                    Toast.makeText(getApplicationContext(), "위치를 선택하세요", Toast.LENGTH_SHORT);
             }
         });
 
     }
 
-    private ArrayList<String> makeSpinnerListFrom(String url, int locationNumber) {
-        String url1 = url;
-
-        // url로부터 데이터 가져와
-        // parsing작업 해서 중복없는 location 정보 갖고오기
-
-        String[] locations = {"가져온 "+locationNumber+"A", "가져온 "+locationNumber+"B", "가져온 "+locationNumber+"C", "가져온 "+locationNumber+"D"};
-        ArrayList<String> list = new ArrayList<>();
-        Collections.addAll(list, locations);
-        list.add(0, "선택");
-
-        return list;
-    }
 
 }

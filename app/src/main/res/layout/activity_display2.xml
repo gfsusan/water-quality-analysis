@@ -66,21 +66,23 @@
                 tools:layout_editor_absoluteX="16dp"
                 tools:layout_editor_absoluteY="148dp" />
 
-            <Button
+            <EditText
                 android:id="@+id/datePicker1"
                 android:layout_width="66dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:backgroundTint="@android:color/white"
-                android:text="날짜1"/>
+                android:hint="ex)20180101"
+                android:inputType="date" />
 
-            <Button
+            <EditText
                 android:id="@+id/datePicker2"
                 android:layout_width="66dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:backgroundTint="@android:color/white"
-                android:text="날짜2"/>
+                android:hint="ex)20181231"
+                android:inputType="date" />
 
             <Button
                 android:id="@+id/buttonMove"

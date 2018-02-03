@@ -9,6 +9,7 @@ import android.widget.Adapter;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -28,25 +29,27 @@ public class Display2Activity extends AppCompatActivity {
     Intent intent;
     ImageButton buttonBack;
     Spinner spinner1;
-    Button datePicker1, datePicker2;
+    EditText datePicker1, datePicker2;
     Button buttonMove;
     GraphView graphView;
     LineGraphSeries<DataPoint> series;
     GregorianCalendar calendar;
-    DataHandler dh;
+
+    String url = "http://165.194.35.103:8181/helloWeb/HServlet";
+    DataHandler2 dh;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_display2);
         intent = getIntent();
-        dh = new DataHandler(intent.getStringArrayExtra("dataIDs"));
+        dh = new DataHandler2(intent.getStringArrayExtra("dataLines"));
 
         buttonBack = (ImageButton)findViewById(R.id.buttonBack);
 
         spinner1 = (Spinner)findViewById(R.id.spinner1);
-        datePicker1 = (Button)findViewById(R.id.datePicker1);
-        datePicker2 = (Button)findViewById(R.id.datePicker2);
+        datePicker1 = (EditText) findViewById(R.id.datePicker1);
+        datePicker2 = (EditText) findViewById(R.id.datePicker2);
 
         buttonMove = (Button)findViewById(R.id.buttonMove);
 
@@ -71,7 +74,8 @@ public class Display2Activity extends AppCompatActivity {
 //                dialog.show();
 //            }
 //        });
-        spinner1.setAdapter(new ArrayAdapter<String>(getApplicationContext(), R.layout.support_simple_spinner_dropdown_item, //////)));
+//TODO zdsfasfsdsd f
+//        spinner1.setAdapter(new ArrayAdapter<String>(getApplicationContext(), R.layout.support_simple_spinner_dropdown_item,
 
 
 
@@ -121,11 +125,5 @@ public class Display2Activity extends AppCompatActivity {
 
     }
 
-    private DatePickerDialog.OnDateSetListener listener = new DatePickerDialog.OnDateSetListener() {
-        @Override
-        public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
-            Toast.makeText(getApplicationContext(), i+"년"+(i1+1)+"월"+i2+"일", Toast.LENGTH_SHORT).show();
-        }
-    };
 
 }
