@@ -93,15 +93,18 @@ public class Display2Activity extends AppCompatActivity {
                     return;
                 }
 
-                dataPoints = dh.getDataPointsBetween(d1,d2,criteria);
 
                 if(spinner.getSelectedItemId()==0) {
                     Toast.makeText(getApplicationContext(), "항목을 선택하세요",
                             Toast.LENGTH_SHORT);
                     return;
-                } else if (dataPoints.length != 0) {
+                }
 
-                    series = new LineGraphSeries<>(dh.getDataPointsBetween(d1, d2, criteria));
+                dataPoints = dh.getDataPointsBetween(d1,d2,criteria);
+
+                if (dataPoints.length != 0) {
+
+                    series = new LineGraphSeries<>(dataPoints);
 
                     // styling options
                     series.setThickness(8);
