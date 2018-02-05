@@ -3,6 +3,7 @@ package com.example.susan.myapplication;
 import android.content.ContentValues;
 import android.os.AsyncTask;
 import android.util.Log;
+import android.widget.Spinner;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -64,8 +65,10 @@ public class DataHandler extends AsyncTask<Void, Void, String> {
 //        for(int i = 0; i < lines.length; i++){
 //            data.add(lines[i].split("@"));
 //        }
-
-
+//
+//        location1IDs = new HashSet<>();
+//        for (int i = 0; i < data.size(); i++)
+//            location1IDs.add(i);
     }
 
     public ArrayList<String> getNextLocationCandidate() {
