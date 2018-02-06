@@ -84,8 +84,11 @@ public class Display2Activity extends AppCompatActivity {
                 try {
                     d1 = dateFormat.parse(datePicker1.getText().toString());
                     d2 = dateFormat.parse(datePicker2.getText().toString());
-                    System.out.println(d1);
-                    System.out.println(d2);
+                    if(!d2.after(d1)) {
+                        Toast.makeText(getApplicationContext(),"날짜 범위를 확인하세요",
+                                Toast.LENGTH_SHORT);
+                        return;
+                    }
                 } catch (ParseException e) {
                     e.printStackTrace();
                     Toast.makeText(getApplicationContext(), "날짜를 확인하세요",

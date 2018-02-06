@@ -68,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
 
             String str = null;
             while ((str = br.readLine()) != null) {
-                waterHtml += str + "\n";
+                waterHtml += str;
             }
 
         }catch(Exception e){
