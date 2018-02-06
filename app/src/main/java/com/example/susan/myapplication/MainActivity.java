@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
         BufferedReader br = null;
 
         try{
-            url = new URL("http://www.naver.com");
+            url = new URL("http://165.194.35.103:8181/helloWeb/HServlet");
             http = (HttpURLConnection) url.openConnection();
             http.setConnectTimeout(3*1000);
             http.setReadTimeout(3*1000);

@@ -54,8 +54,7 @@ public class Display1Activity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_display1);
         Intent intent = getIntent();
-        dh = new DataHandler(url, null);
-        dh.execute();
+        dh = new DataHandler(intent.getStringExtra("waterData"));
 
         buttonBack = (ImageButton)findViewById(R.id.buttonBack);
         buttonMove = (Button)findViewById(R.id.buttonMove);

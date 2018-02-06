@@ -15,7 +15,7 @@ import java.util.HashSet;
  * Created by Susan on 2018-02-01.
  */
 
-public class DataHandler extends AsyncTask<Void, Void, String> {
+public class DataHandler  {
     private String[] dataLines;
     private ArrayList<String[]> data;
     private String url;
@@ -24,14 +24,14 @@ public class DataHandler extends AsyncTask<Void, Void, String> {
     private HashSet<Integer> location1IDs, location2IDs, location3IDs, location4IDs;
 
 
-    public DataHandler(String url, ContentValues values) {
+    public DataHandler(String s) {
+//
+//        String temp = "NJ-DS-CLI-01@나주 다시(배) 잔류염소@NJ-DS@금영섬@전남중부권@나주@남평@null@180123-00:20@0.45@0@CLI@0.8@0.5@잔류염소@PPM<br>NJ-NP-CLI-01@나주 남평(배) 잔류염소@NJ-NP@금영섬@전남중부권@나주@남평@d3@180123-12:34@0.46@0@CLI@0.8@0.5@잔류염소@PPM<br>NJ-NP-PHI-01@나주 남평(배) pH@NJ-NP@금영섬@전남중부권@나주@남평@d1@180123-12:34@7.11@0@PHI@7.5@6.5@PH@PH<br>NJ-NP-TBI-01@나주 남평(배) 탁도@NJ-NP@금영섬@전남중부권@나주@남평@d4@180123-12:34@0.45@0@TBI@0.5@-9999.0@탁도@NTU<br>NJ-NP-TEI-01@나주 남평(배) 온도@NJ-NP@금영섬@전남중부권@나주@남평@d2@180123-12:34@10.1@0@TEI@30.0@4.0@온도@℃<br>WD-ND-PHI-01@완도 노두(배) pH@WD-ND@금영성@전남서남권@완도@대야@null@null@0.0@0@PHI@7.5@6.5@PH@PH<br>WD-ND-TEI-01@완도 노두(배) 온도@WD-ND@금영성@전남서남권@완도@대야@null@null@0.0@0@TEI@30.0@4.0@온도@℃";
+//        System.out.print(temp);
+//        dataLines = temp.split(<br>");
 
-        this.url = url;
-        this.values = values;
-
-        String temp = "NJ-DS-CLI-01@나주 다시(배) 잔류염소@NJ-DS@금영섬@전남중부권@나주@남평@null@180123-00:20@0.45@0@CLI@0.8@0.5@잔류염소@PPM<br>NJ-NP-CLI-01@나주 남평(배) 잔류염소@NJ-NP@금영섬@전남중부권@나주@남평@d3@180123-12:34@0.46@0@CLI@0.8@0.5@잔류염소@PPM<br>NJ-NP-PHI-01@나주 남평(배) pH@NJ-NP@금영섬@전남중부권@나주@남평@d1@180123-12:34@7.11@0@PHI@7.5@6.5@PH@PH<br>NJ-NP-TBI-01@나주 남평(배) 탁도@NJ-NP@금영섬@전남중부권@나주@남평@d4@180123-12:34@0.45@0@TBI@0.5@-9999.0@탁도@NTU<br>NJ-NP-TEI-01@나주 남평(배) 온도@NJ-NP@금영섬@전남중부권@나주@남평@d2@180123-12:34@10.1@0@TEI@30.0@4.0@온도@℃<br>WD-ND-PHI-01@완도 노두(배) pH@WD-ND@금영성@전남서남권@완도@대야@null@null@0.0@0@PHI@7.5@6.5@PH@PH<br>WD-ND-TEI-01@완도 노두(배) 온도@WD-ND@금영성@전남서남권@완도@대야@null@null@0.0@0@TEI@30.0@4.0@온도@℃";
-        System.out.print(temp);
-        dataLines = temp.split("<br>");
+        System.out.print(s);
+        dataLines = s.split("<br>");
         data = new ArrayList<>();
         for (int i = 0; i < dataLines.length; i++) {
             data.add(dataLines[i].split("@"));
@@ -41,36 +41,6 @@ public class DataHandler extends AsyncTask<Void, Void, String> {
         for (int i = 0; i < data.size(); i++)
             location1IDs.add(i);
     }
-
-    @Override
-    protected String doInBackground(Void... params) {
-
-        String result; // 요청 결과를 저장할 변수.
-        RequestHttpURLConnection requestHttpURLConnection = new RequestHttpURLConnection();
-        result = requestHttpURLConnection.request(url, values); // 해당 URL로 부터 결과물을 얻어온다.
-
-        return result;
-    }
-
-    @Override
-    protected void onPostExecute(String s) {
-        super.onPostExecute(s);
-
-        //doInBackground()로 부터 리턴된 값이 onPostExecute()의 매개변수로 넘어오므로 s를 출력한다.
-        System.out.print(s);
-
-        // TODO 이거 주석해제하면 받아온 데이터로 실행됨
-//        data = new ArrayList<>();
-//        String[] lines = s.split("<br>");
-//        for(int i = 0; i < lines.length; i++){
-//            data.add(lines[i].split("@"));
-//        }
-//
-//        location1IDs = new HashSet<>();
-//        for (int i = 0; i < data.size(); i++)
-//            location1IDs.add(i);
-    }
-
     public ArrayList<String> getNextLocationCandidate() {
         HashSet<String> hashSet = new HashSet<>();
 
