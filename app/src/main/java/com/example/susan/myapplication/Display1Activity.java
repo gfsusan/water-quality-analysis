@@ -53,7 +53,7 @@ public class Display1Activity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_display1);
-
+        Intent intent = getIntent();
         dh = new DataHandler(url, null);
         dh.execute();
 
